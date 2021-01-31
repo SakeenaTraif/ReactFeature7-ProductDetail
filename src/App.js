@@ -3,6 +3,8 @@ import { GlobalStyle, ThemeButton } from "./styles";
 
 import Home from "./components/Home";
 // Components
+import products from "./products";
+import ProductDetail from "./components/ProductDetail";
 import ProductList from "./components/ProductList";
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
@@ -24,9 +26,16 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
+  const [product,setProduct] =useState("");
 
-  const toggleTheme = () =>
+  const toggleTheme = () => {
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
+  };
+
+    const display =() => product ? (
+    <ProductDetail cookie={product} setProduct={setProduct}/>):(
+      <ProductList setProduct={setProduct} />
+    );
 
   return (
     <ThemeProvider theme={theme[currentTheme]}>
@@ -35,7 +44,9 @@ function App() {
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
       <Home />
-      <ProductList />
+      {/* <ProductList setProduct={setProduct}/>
+      <ProductDetail cookie={product}/> */}
+      {display()}
     </ThemeProvider>
   );
 }

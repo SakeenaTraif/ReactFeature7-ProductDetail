@@ -1,12 +1,14 @@
-import { DetailWrapper } from "../styles";
+import { DetailWrapper,ThemeButton } from "../styles";
 
-const ProductDetail = () => {
+const ProductDetail = (props) => {
+  const cookie = props.cookie;
   return (
     <DetailWrapper>
-      <h1>I should be a product name</h1>
-      <img src="I should be a product image" alt="I should be a product name" />
-      <p>I should be a product description</p>
-      <p>I should be a product price</p>
+      <h1>{cookie.name}</h1>
+      <img src={cookie.image} alt={cookie.name} />
+      <p>{cookie.description}</p>
+      <p>{cookie.price}</p>
+      <ThemeButton onClick={() => props.setProduct("")}>Go Back Home</ThemeButton>
     </DetailWrapper>
   );
 };
