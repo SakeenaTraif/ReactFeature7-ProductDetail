@@ -3,11 +3,12 @@ import { GlobalStyle, ThemeButton } from "./styles";
 
 import Home from "./components/Home";
 // Components
-import products from "./products";
 import ProductDetail from "./components/ProductDetail";
 import ProductList from "./components/ProductList";
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
+//Data
+import products from "./products";
 
 const theme = {
   light: {
@@ -26,15 +27,27 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
+  const [_products, setProducts] = useState(products);
   const [product,setProduct] =useState("");
 
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
   };
 
+  const deleteProduct = (productId) =>{
+    const keptProducts = _products.filter((product) => product.id !== productId);
+      setProducts(keptProducts);
+    };
+
     const display =() => product ? (
-    <ProductDetail cookie={product} setProduct={setProduct}/>):(
-      <ProductList setProduct={setProduct} />
+    <ProductDetail 
+    product={product} 
+    setProduct={setProduct}
+    deleteProduct={deleteProduct}/>):(
+      <ProductList 
+      products={_products} 
+      setProduct={setProduct} 
+      deleteProduct={deleteProduct}/>
     );
 
   return (
@@ -44,8 +57,6 @@ function App() {
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
       <Home />
-      {/* <ProductList setProduct={setProduct}/>
-      <ProductDetail cookie={product}/> */}
       {display()}
     </ThemeProvider>
   );

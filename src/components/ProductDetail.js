@@ -1,14 +1,19 @@
 import { DetailWrapper,ThemeButton } from "../styles";
+//components
+import DeleteButton from "./DeleteButton";
 
 const ProductDetail = (props) => {
-  const cookie = props.cookie;
+  const product = props.product;
+  const setProduct = props.setProduct;
+
   return (
     <DetailWrapper>
-      <h1>{cookie.name}</h1>
-      <img src={cookie.image} alt={cookie.name} />
-      <p>{cookie.description}</p>
-      <p>{cookie.price}</p>
+      <h1>{product.name}</h1>
+      <img src={product.image} alt={product.name} />
+      <p>{product.description}</p>
+      <p>{product.price}</p>
       <ThemeButton onClick={() => props.setProduct("")}>Go Back Home</ThemeButton>
+      <DeleteButton deleteProduct={props.deleteProduct} product={product} setProduct={setProduct}/>
     </DetailWrapper>
   );
 };
